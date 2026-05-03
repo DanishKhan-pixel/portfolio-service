@@ -67,26 +67,24 @@ A production-ready **Django REST Framework** backend for a developer portfolio. 
 ## 📁 Project Structure
 
 ```
-portfolio-service/
+backend/
 ├── manage.py
 ├── requirements.txt
 ├── gunicorn.conf.py
 ├── .env.example
 ├── .gitignore
-│
 ├── config/                     # Project config
 │   ├── settings.py             # Single-file settings (dev/prod via DJANGO_ENV)
 │   ├── urls.py                 # Root URL config
 │   ├── wsgi.py
 │   └── asgi.py
-│
 └── apps/
     └── portfolio/              # Main app
-        ├── models.py           # 5 models + abstract base
-        ├── serializers.py      # Read-only serializers
-        ├── views.py            # GET-only API views
-        ├── urls.py             # App URL patterns
-        ├── admin.py            # Customized admin
+        ├── models.py
+        ├── serializers.py
+        ├── views.py
+        ├── urls.py
+        ├── admin.py
         └── migrations/
 ```
 
@@ -98,7 +96,7 @@ portfolio-service/
 
 ```bash
 git clone <repo-url>
-cd portfolio-service
+cd portfolio-service/backend
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -149,7 +147,8 @@ python manage.py runserver
 
 | Method | Endpoint                  | Description                    |
 |--------|---------------------------|--------------------------------|
-| GET    | `/`                       | API root (endpoint discovery)  |
+| GET    | `/`                       | Redirects to `FRONTEND_URL`    |
+| GET    | `/api/`                   | API root (endpoint discovery)  |
 | GET    | `/api/profile/`           | Developer profile (singleton)  |
 | GET    | `/api/skills/`            | All skills by category         |
 | GET    | `/api/projects/`          | All projects (list view)       |

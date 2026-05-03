@@ -146,6 +146,8 @@ class EducationSerializer(serializers.ModelSerializer):
 
 
 class CertificationSerializer(serializers.ModelSerializer):
+    credential_url = serializers.SerializerMethodField()
+
     class Meta:
         model = Certification
         fields = [
@@ -159,6 +161,17 @@ class CertificationSerializer(serializers.ModelSerializer):
             'order',
         ]
         read_only_fields = fields
+
+    def get_credential_url(self, obj):
+        """
+        Return absolute URL for local media paths so frontend on another port
+        can open certificates directly.
+        """
+        url = obj.credential_url or ""
+        request = self.context.get("request")
+        if request and url.startswith("/"):
+            return request.build_absolute_uri(url)
+        return url
 
 
 # ─── Single-page portfolio serializer ─────────────────────────

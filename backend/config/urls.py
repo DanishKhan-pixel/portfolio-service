@@ -6,6 +6,7 @@ from django.urls import include, path
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.conf import settings
+from django.conf.urls.static import static
 
 
 def api_root(request):
@@ -34,3 +35,6 @@ urlpatterns = [
     path('api/', include('apps.portfolio.urls', namespace='portfolio')),
     path('writer/', include('apps.portfolio.writer_urls', namespace='writer')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

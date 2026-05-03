@@ -131,7 +131,7 @@ class PortfolioView(APIView):
             'education':      Education.objects.all(),
             'certifications': Certification.objects.all(),
         }
-        serializer = PortfolioSerializer(data)
+        serializer = PortfolioSerializer(data, context={"request": request})
         return Response(serializer.data)
 
 
