@@ -35,7 +35,7 @@ export default function Navbar() {
                     }}
                 >
                     <span className="navbar-logo-icon">Y</span>
-                    <span>Yahya</span>
+                    <span>Danish</span>
                 </a>
 
                 <ul className={`navbar-links ${mobileOpen ? 'open' : ''}`}>

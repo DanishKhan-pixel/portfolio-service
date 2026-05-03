@@ -25,7 +25,7 @@ export default function Footer() {
                     >
                         Y
                     </span>
-                    Yahya
+                    Danish
                 </div>
 
                 <p className="footer-tagline">
@@ -100,7 +100,7 @@ export default function Footer() {
                 </div>
 
                 <div className="footer-bottom">
-                    <span>© {new Date().getFullYear()} Yahya. All rights reserved.</span>
+                    <span>© {new Date().getFullYear()} Danish. All rights reserved.</span>
                     <span className="footer-built">
                         Built with React + Django
                     </span>
