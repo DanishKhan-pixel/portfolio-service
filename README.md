@@ -75,11 +75,7 @@ portfolio-service/
 ├── .gitignore
 │
 ├── config/                     # Project config
-│   ├── settings/
-│   │   ├── __init__.py         # Auto-selects dev/prod
-│   │   ├── base.py             # Shared settings
-│   │   ├── development.py      # Dev overrides (SQLite, browsable API)
-│   │   └── production.py       # Prod security (HSTS, SSL, etc.)
+│   ├── settings.py             # Single-file settings (dev/prod via DJANGO_ENV)
 │   ├── urls.py                 # Root URL config
 │   ├── wsgi.py
 │   └── asgi.py
