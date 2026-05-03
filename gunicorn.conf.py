@@ -2,7 +2,7 @@
 Gunicorn configuration for production deployment.
 
 Usage:
-    gunicorn -c gunicorn.conf.py portfolio_backend.wsgi:application
+    gunicorn -c gunicorn.conf.py config.wsgi:application
 """
 
 import multiprocessing

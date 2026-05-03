@@ -67,14 +67,14 @@ A production-ready **Django REST Framework** backend for a developer portfolio. 
 ## 📁 Project Structure
 
 ```
-portfolio_backend/
+portfolio-service/
 ├── manage.py
 ├── requirements.txt
 ├── gunicorn.conf.py
 ├── .env.example
 ├── .gitignore
 │
-├── portfolio_backend/          # Project config
+├── config/                     # Project config
 │   ├── settings/
 │   │   ├── __init__.py         # Auto-selects dev/prod
 │   │   ├── base.py             # Shared settings
@@ -84,13 +84,14 @@ portfolio_backend/
 │   ├── wsgi.py
 │   └── asgi.py
 │
-└── portfolio/                  # Main app
-    ├── models.py               # 5 models + abstract base
-    ├── serializers.py          # Read-only serializers
-    ├── views.py                # GET-only API views
-    ├── urls.py                 # App URL patterns
-    ├── admin.py                # Customized admin
-    └── migrations/
+└── apps/
+    └── portfolio/              # Main app
+        ├── models.py           # 5 models + abstract base
+        ├── serializers.py      # Read-only serializers
+        ├── views.py            # GET-only API views
+        ├── urls.py             # App URL patterns
+        ├── admin.py            # Customized admin
+        └── migrations/
 ```
 
 ---
@@ -101,7 +102,7 @@ portfolio_backend/
 
 ```bash
 git clone <repo-url>
-cd portfolio_backend
+cd portfolio-service
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -181,7 +182,7 @@ python manage.py runserver
 ```bash
 export DJANGO_ENV=production
 python manage.py collectstatic --noinput
-gunicorn -c gunicorn.conf.py portfolio_backend.wsgi:application
+gunicorn -c gunicorn.conf.py config.wsgi:application
 ```
 
 ### Environment Variables (Production)

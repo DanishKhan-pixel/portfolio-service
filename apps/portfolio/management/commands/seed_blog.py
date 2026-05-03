@@ -9,7 +9,7 @@ Usage:
 
 from django.core.management.base import BaseCommand
 from django.utils import timezone
-from portfolio.models import BlogTag, BlogPost
+from apps.portfolio.models import BlogTag, BlogPost
 
 
 TAGS = [

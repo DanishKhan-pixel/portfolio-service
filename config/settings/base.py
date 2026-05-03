@@ -1,5 +1,5 @@
 """
-Base Django settings for portfolio_backend project.
+Base Django settings for config project.
 Common settings shared across all environments.
 """
 
@@ -40,7 +40,7 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    'portfolio',
+    'apps.portfolio',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -62,7 +62,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'portfolio_backend.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
@@ -79,7 +79,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'portfolio_backend.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # =============================================================================

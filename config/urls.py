@@ -1,5 +1,5 @@
 """
-Root URL configuration for portfolio_backend project.
+Root URL configuration for config project.
 """
 from django.contrib import admin
 from django.urls import path, include
@@ -26,6 +26,6 @@ def api_root(request):
 urlpatterns = [
     path('', api_root, name='api-root'),
     path('admin/', admin.site.urls),
-    path('api/', include('portfolio.urls', namespace='portfolio')),
-    path('writer/', include('portfolio.writer_urls', namespace='writer')),
+    path('api/', include('apps.portfolio.urls', namespace='portfolio')),
+    path('writer/', include('apps.portfolio.writer_urls', namespace='writer')),
 ]
