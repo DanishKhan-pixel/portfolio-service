@@ -2,12 +2,17 @@
 Root URL configuration for config project.
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import include, path
 from django.http import JsonResponse
+from django.shortcuts import redirect
+from django.conf import settings
 
 
 def api_root(request):
-    """API root — returns available endpoints for discoverability."""
+    """Redirect root to frontend when configured."""
+    if settings.FRONTEND_URL:
+        return redirect(settings.FRONTEND_URL)
+
     return JsonResponse({
         "message": "Portfolio Backend API",
         "version": "1.0.0",

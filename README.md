@@ -35,7 +35,7 @@ A production-ready **Django REST Framework** backend for a developer portfolio. 
               │
               ▼
 ┌─────────────────────────────────────────────────┐
-│                MySQL Database                    │
+│              PostgreSQL Database                 │
 │                                                  │
 │  ┌──────────┐ ┌──────────┐ ┌──────────────┐    │
 │  │ Profile  │ │  Skill   │ │   Project    │    │
@@ -56,7 +56,7 @@ A production-ready **Django REST Framework** backend for a developer portfolio. 
 |----------------|-------------------------------------|
 | Framework      | Django 6.0                          |
 | API Layer      | Django REST Framework 3.16          |
-| Database       | MySQL (SQLite for local dev)        |
+| Database       | PostgreSQL (SQLite optional for local dev) |
 | Static Files   | WhiteNoise                          |
 | CORS           | django-cors-headers                 |
 | Config         | python-decouple (.env)              |
@@ -113,9 +113,9 @@ cp .env.example .env
 
 ### 3. Database Setup
 
-**For MySQL (production):**
+**For PostgreSQL (production):**
 ```bash
-mysql -u root -p -e "CREATE DATABASE portfolio_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+psql -U postgres -c "CREATE DATABASE portfolio_db;"
 # Update DB_* variables in .env
 export DJANGO_ENV=production
 ```
@@ -192,7 +192,7 @@ DB_NAME=portfolio_db
 DB_USER=portfolio_user
 DB_PASSWORD=<strong-password>
 DB_HOST=localhost
-DB_PORT=3306
+DB_PORT=5432
 CORS_ALLOWED_ORIGINS=https://yourdomain.com
 SECURE_SSL_REDIRECT=True
 ```
