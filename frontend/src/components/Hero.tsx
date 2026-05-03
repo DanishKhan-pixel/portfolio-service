@@ -63,7 +63,7 @@ export default function Hero() {
                     </div>
 
                     <h1 className="hero-name">
-                        Hi, I'm{' '}
+                        {' '}
                         <span className="hero-name-highlight">{firstName}</span>
                         <br />
                         {lastName}.

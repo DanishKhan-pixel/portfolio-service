@@ -25,7 +25,7 @@ export default function About() {
             id="about"
             label="ABOUT_ME"
             title="About Me"
-            subtitle="core_system_profile.tf"
+            subtitle=""
         >
             {loading ? (
                 <div className="about-grid">
