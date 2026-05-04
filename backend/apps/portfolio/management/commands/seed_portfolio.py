@@ -2,9 +2,7 @@
 Management command: seed_portfolio
 Seeds portfolio data from a resume/CV into core models.
 """
-
 from datetime import date
-
 from django.core.management.base import BaseCommand
 from django.utils.text import slugify
 
