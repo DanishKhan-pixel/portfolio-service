@@ -164,6 +164,3 @@ The production build outputs to `dist/` with code-split chunks per section for o
 
 ---
 
-## 📄 License
-
-MIT

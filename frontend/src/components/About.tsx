@@ -13,6 +13,7 @@ const PHILOSOPHY = [
     'Security by design, not as an afterthought',
 ];
 
+
 export default function About() {
     const fetcher = useCallback(() => api.getProfile(), []);
     const { data: profile, loading, error, refetch } = useApi(fetcher);
