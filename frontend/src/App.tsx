@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 
 const About = lazy(() => import('./components/About'));
 const TechStack = lazy(() => import('./components/TechStack'));
@@ -57,6 +58,7 @@ export default function App() {
         </Suspense>
       </main>
       <Footer />
+      <ScrollToTop />
     </>
   );
 }
