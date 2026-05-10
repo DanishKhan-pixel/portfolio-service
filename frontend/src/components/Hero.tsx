@@ -51,8 +51,14 @@ export default function Hero() {
 
     return (
         <section id="hero" className="hero">
+            {/* Animated background orbs */}
+            <div className="glow-orb glow-orb-blue" style={{ top: '10%', right: '5%' }} />
+            <div className="glow-orb glow-orb-purple" style={{ bottom: '20%', left: '-5%' }} />
+            <div className="glow-orb glow-orb-cyan" style={{ top: '40%', right: '20%' }} />
+            <div className="glow-orb glow-orb-pink" style={{ bottom: '10%', right: '10%' }} />
             <div className="container hero-grid">
                 <motion.div
+                    className="animate-fade-in-left"
                     initial={{ opacity: 0, x: -40 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.7, ease: 'easeOut' }}
@@ -64,7 +70,7 @@ export default function Hero() {
 
                     <h1 className="hero-name">
                         {' '}
-                        <span className="hero-name-highlight">{firstName}</span>
+                        <span className="hero-name-highlight gradient-text">{firstName}</span>
                         <br />
                         {lastName}.
                     </h1>
@@ -138,7 +144,7 @@ export default function Hero() {
                 </motion.div>
 
                 <motion.div
-                    className="hero-terminal"
+                    className="hero-terminal animate-fade-in-right"
                     initial={{ opacity: 0, x: 40 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}

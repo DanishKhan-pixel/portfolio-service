@@ -30,7 +30,7 @@ export default function SectionWrapper({
     return (
         <motion.section
             id={id}
-            className={`section ${className}`}
+            className={`section ${className} animate-fade-in-up`}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-80px' }}
