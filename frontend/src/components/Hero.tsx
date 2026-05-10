@@ -175,13 +175,6 @@ export default function Hero() {
                         ))}
                     </motion.div>
 
-                    <motion.p
-                        className="hero-bio"
-                        variants={fadeInUp}
-                    >
-                        {profile.bio}
-                    </motion.p>
-
                     <motion.div
                         className="hero-ctas"
                         variants={fadeInUp}

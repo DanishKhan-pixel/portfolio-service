@@ -84,7 +84,8 @@ export default function TechStack() {
             id="techstack"
             label="TECH_STACK"
             title="Technical Stack"
-            subtitle="My go-to technologies, frameworks & tooling."
+            subtitle="Technologies I architect, scale, and ship production-grade systems with every single day.
+"
         >
             {loading ? (
                 <div className="loading-wrapper">
@@ -134,7 +135,7 @@ export default function TechStack() {
                                 {catSkills.map((skill, i) => (
                                     <motion.div
                                         key={skill.id}
-                                        className="skill-card"
+                                        className={`skill-card skill-category-${category.toLowerCase()}`}
                                         variants={cardVariants}
                                         initial="hidden"
                                         whileInView="visible"
