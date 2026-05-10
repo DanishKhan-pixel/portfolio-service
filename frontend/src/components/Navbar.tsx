@@ -34,7 +34,7 @@ export default function Navbar() {
                         scrollToSection('hero');
                     }}
                 >
-                    <span className="navbar-logo-icon">Y</span>
+                    <span className="navbar-logo-icon">D</span>
                     <span>Danish</span>
                 </a>
 
