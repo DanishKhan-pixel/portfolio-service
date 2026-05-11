@@ -23,9 +23,9 @@ export default function Footer() {
                         className="navbar-logo-icon"
                         style={{ width: 28, height: 28, fontSize: '0.75rem' }}
                     >
-                        Y
-                    </span>
-                    Danish
+                    
+                    <span className="navbar-logo-icon">D</span></span>
+                    <span>Danish</span>
                 </div>
 
                 <p className="footer-tagline">

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { ExternalLink, Download, Mail, Briefcase, Code } from 'lucide-react';
 import { useApi } from '../hooks/useApi';
 import api from '../services/api';
@@ -15,10 +15,38 @@ const TERMINAL_LINES = [
     { prompt: '>', text: 'System Online — Ready to build.', delay: 3000, success: true },
 ];
 
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.08,
+            delayChildren: 0.2,
+        },
+    },
+};
+
+const fadeInUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            type: 'spring' as const,
+            stiffness: 100,
+            damping: 15,
+        },
+    },
+};
+
 export default function Hero() {
     const fetcher = useCallback(() => api.getProfile(), []);
     const { data: profile, loading } = useApi(fetcher);
     const [visibleLines, setVisibleLines] = useState(0);
+
+    const { scrollY } = useScroll();
+    const heroY = useTransform(scrollY, [0, 500], [0, -100]);
+    const heroOpacity = useTransform(scrollY, [0, 300], [1, 0.3]);
 
     useEffect(() => {
         const timers = TERMINAL_LINES.map((line, i) =>
@@ -51,70 +79,150 @@ export default function Hero() {
 
     return (
         <section id="hero" className="hero">
+            <motion.div
+                className="hero-background"
+                style={{ y: heroY, opacity: heroOpacity }}
+            >
+                <motion.div
+                    className="glow-orb glow-orb-blue"
+                    style={{ top: '10%', right: '5%' }}
+                    animate={{
+                        y: [-10, 10, -10],
+                    }}
+                    transition={{
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: 'easeInOut',
+                    }}
+                />
+                <motion.div
+                    className="glow-orb glow-orb-purple"
+                    style={{ bottom: '20%', left: '-5%' }}
+                    animate={{
+                        y: [0, 20, 0],
+                        x: [0, 10, 0],
+                    }}
+                    transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+                />
+                <motion.div
+                    className="glow-orb glow-orb-cyan"
+                    style={{ top: '40%', right: '20%' }}
+                    animate={{
+                        y: [0, -15, 0],
+                    }}
+                    transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+                />
+                <motion.div
+                    className="glow-orb glow-orb-pink"
+                    style={{ bottom: '10%', right: '10%' }}
+                    animate={{
+                        y: [0, 12, 0],
+                    }}
+                    transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
+                />
+            </motion.div>
+
+            <div className="grid-pattern" />
+
             <div className="container hero-grid">
                 <motion.div
-                    initial={{ opacity: 0, x: -40 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.7, ease: 'easeOut' }}
+                    className="hero-content"
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="visible"
                 >
-                    <div className="hero-status">
-                        <span className="hero-status-dot" />
+                    <motion.div
+                        className="hero-status"
+                        variants={fadeInUp}
+                        whileHover={{ scale: 1.02 }}
+                    >
+                        <motion.span
+                            className="hero-status-dot"
+                            animate={{
+                                scale: [1, 1.3, 1],
+                                opacity: [1, 0.7, 1],
+                            }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                        />
                         SYSTEM ONLINE
-                    </div>
+                    </motion.div>
 
-                    <h1 className="hero-name">
-                        {' '}
-                        <span className="hero-name-highlight">{firstName}</span>
+                    <motion.h1
+                        className="hero-name"
+                        variants={fadeInUp}
+                    >
+                        <span className="hero-name-highlight gradient-text">{firstName}</span>
                         <br />
                         {lastName}.
-                    </h1>
+                    </motion.h1>
 
-                    <div className="hero-title">
+                    <motion.div
+                        className="hero-title"
+                        variants={fadeInUp}
+                    >
                         {profile.title.split('|').map((part, i, arr) => (
-                            <span key={i}>
+                            <motion.span
+                                key={i}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.4 + i * 0.1 }}
+                            >
                                 {part.trim()}
                                 {i < arr.length - 1 && (
                                     <span className="hero-title-divider"> | </span>
                                 )}
-                            </span>
+                            </motion.span>
                         ))}
-                    </div>
+                    </motion.div>
 
-                    <p className="hero-bio">{profile.bio}</p>
-
-                    <div className="hero-ctas">
-                        <button
+                    <motion.div
+                        className="hero-ctas"
+                        variants={fadeInUp}
+                    >
+                        <motion.button
                             className="btn btn-primary"
                             onClick={() => scrollToSection('projects')}
                             id="cta-view-projects"
+                            whileHover={{ scale: 1.03, boxShadow: '0 0 30px rgba(59, 130, 246, 0.4)' }}
+                            whileTap={{ scale: 0.98 }}
                         >
                             <ExternalLink size={16} />
                             View Projects
-                        </button>
+                        </motion.button>
                         {profile.resume_url && (
-                            <a
+                            <motion.a
                                 href={profile.resume_url}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="btn btn-secondary"
                                 id="cta-download-resume"
+                                whileHover={{ scale: 1.03 }}
+                                whileTap={{ scale: 0.98 }}
                             >
                                 <Download size={16} />
                                 Resume
-                            </a>
+                            </motion.a>
                         )}
-                        <button
+                        <motion.button
                             className="btn btn-secondary"
                             onClick={() => scrollToSection('contact')}
                             id="cta-contact"
+                            whileHover={{ scale: 1.03 }}
+                            whileTap={{ scale: 0.98 }}
                         >
                             <Mail size={16} />
                             Contact Me
-                        </button>
-                    </div>
+                        </motion.button>
+                    </motion.div>
 
-                    <div className="hero-stats">
-                        <div className="hero-stat">
+                    <motion.div
+                        className="hero-stats"
+                        variants={fadeInUp}
+                    >
+                        <motion.div
+                            className="hero-stat"
+                            whileHover={{ y: -4, transition: { type: 'spring', stiffness: 300 } }}
+                        >
                             <div className="hero-stat-icon">
                                 <Briefcase size={18} />
                             </div>
@@ -124,8 +232,11 @@ export default function Hero() {
                                 </div>
                                 <div className="hero-stat-label">Years</div>
                             </div>
-                        </div>
-                        <div className="hero-stat">
+                        </motion.div>
+                        <motion.div
+                            className="hero-stat"
+                            whileHover={{ y: -4, transition: { type: 'spring', stiffness: 300 } }}
+                        >
                             <div className="hero-stat-icon">
                                 <Code size={18} />
                             </div>
@@ -133,40 +244,68 @@ export default function Hero() {
                                 <div className="hero-stat-number">150K+</div>
                                 <div className="hero-stat-label">Lines of Code</div>
                             </div>
-                        </div>
-                    </div>
+                        </motion.div>
+                    </motion.div>
                 </motion.div>
 
                 <motion.div
                     className="hero-terminal"
-                    initial={{ opacity: 0, x: 40 }}
-                    animate={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0, x: 40, scale: 0.95 }}
+                    animate={{ opacity: 1, x: 0, scale: 1 }}
                     transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
+                    style={{ willChange: 'transform, opacity' }}
                 >
-                    <div className="terminal">
-                        <div className="terminal-header">
-                            <span className="terminal-dot" />
-                            <span className="terminal-dot" />
-                            <span className="terminal-dot" />
-                            <span className="terminal-title">~/portfolio</span>
+                    <motion.div
+                        animate={{
+                        boxShadow: [
+                            '0 0 20px rgba(59, 130, 246, 0.3)',
+                            '0 0 40px rgba(59, 130, 246, 0.5)',
+                            '0 0 60px rgba(168, 85, 247, 0.3)',
+                            '0 0 20px rgba(59, 130, 246, 0.3)',
+                        ],
+                    }}
+                    transition={{ duration: 4, repeat: Infinity }}
+                    style={{
+                        borderRadius: 'var(--radius-md)',
+                        padding: '2px',
+                        background: 'linear-gradient(135deg, var(--color-accent), var(--color-purple), var(--color-cyan))',
+                    }}
+                    >
+                        <div className="terminal">
+                            <div className="terminal-header">
+                                <span className="terminal-dot" />
+                                <span className="terminal-dot" />
+                                <span className="terminal-dot" />
+                                <span className="terminal-title">~/portfolio</span>
+                            </div>
+                            <div className="terminal-body">
+                                {TERMINAL_LINES.slice(0, visibleLines).map((line, i) => (
+                                    <motion.div
+                                        className="terminal-line"
+                                        key={i}
+                                        initial={{ opacity: 0, x: -10 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ duration: 0.3 }}
+                                    >
+                                        <span className="terminal-prompt">{line.prompt}</span>
+                                        <span className={line.success ? 'terminal-success' : ''}>
+                                            {line.text}
+                                        </span>
+                                    </motion.div>
+                                ))}
+                                {visibleLines < TERMINAL_LINES.length && (
+                                    <div className="terminal-line">
+                                        <span className="terminal-prompt">~$</span>
+                                        <motion.span
+                                            className="cursor-blink"
+                                            animate={{ opacity: [1, 0] }}
+                                            transition={{ duration: 0.8, repeat: Infinity }}
+                                        />
+                                    </div>
+                                )}
+                            </div>
                         </div>
-                        <div className="terminal-body">
-                            {TERMINAL_LINES.slice(0, visibleLines).map((line, i) => (
-                                <div className="terminal-line" key={i}>
-                                    <span className="terminal-prompt">{line.prompt}</span>
-                                    <span className={line.success ? 'terminal-success' : ''}>
-                                        {line.text}
-                                    </span>
-                                </div>
-                            ))}
-                            {visibleLines < TERMINAL_LINES.length && (
-                                <div className="terminal-line">
-                                    <span className="terminal-prompt">~$</span>
-                                    <span className="cursor-blink" />
-                                </div>
-                            )}
-                        </div>
-                    </div>
+                    </motion.div>
                 </motion.div>
             </div>
         </section>
